@@ -1,0 +1,45 @@
+# Validate configuration Files
+sudo nginx -t
+
+# reload 
+sudo nginx -s reload
+-s option is used for various signals to nginx
+
+# modifiers
+( =, ^~, ~, ~*)
+#prefix match
+location / name {
+    return 200 "  ";
+}
+#exact match
+location =/ name {
+    return 200 " ";
+}
+#Regex match 
+locatio ~*/name[ ] {
+    return 200 " ";
+}
+( * for case sensitive)
+
+# Redirect
+location =/ name {
+    return 301 / redirect filename;
+}
+
+
+# try_files
+#try_files is often used with the $uri nginx variable
+try_files $uri /not_found;
+by writing  try_files $uri /not_found; instructing nginx to try for the URI requested first, if it dosn't find that , then try next one,
+
+# NGINX as a Reverse proxy
+server {
+        listen 80;
+        server_name nginx.test;
+
+        location / {
+                proxy_pass "https://nginx.org/";
+        }
+    }
+
+proxy_pass directive passes request to a third party server and reverser proxies response
